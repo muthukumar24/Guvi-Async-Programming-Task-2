@@ -33,65 +33,83 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Function to create Bootstrap card
         function createCard(country) {
-
+            // Card
             const card = document.createElement('div');
             
             card.classList.add('col-sm-6', 'col-md-4', 'col-lg-4', 'col-xl-4', 'mb-4');
         
+            // Card Body
             const cardBody = document.createElement('div');
             cardBody.setAttribute('id', 'card-item');
             cardBody.classList.add('card', 'h-100', 'p-3');
-        
+
+            // Country Name
             const countryName = document.createElement('div');
             countryName.setAttribute('id', 'card-header-name');
             countryName.classList.add('card-header');
             countryName.classList.add('text-center')
             countryName.textContent = country.name.common;
         
+            // Country Flag
             const flag = document.createElement('img');
             flag.setAttribute('id', 'flag-image');
             flag.classList.add('card-img-top', 'mx-auto');
             flag.src = country.flags.png;
             flag.alt = `${country.name.common} flag`;
         
+            // Card Body
             const cardText = document.createElement('div');
             cardText.classList.add('card-body');
         
+            // Country Native Name
             const nativeName = document.createElement('div');
             nativeName.classList.add('text-center');
             nativeName.classList.add('card-text');
             nativeName.textContent = `Native Name: ${country.name.common ? country.name.common : 'N/A'}`;
             
+            // Country Region
             const region = document.createElement('div');
             region.classList.add('text-center');
             region.classList.add('card-text');
             region.textContent = `Region: ${country.region || 'N/A'}`;
         
+            // Country Population
             const population = document.createElement('div');
             population.classList.add('text-center');
             population.classList.add('card-text');
             population.textContent = `Population: ${country.population || 'N/A'}`;
         
+            // Country Area
             const area = document.createElement('div');
             area.classList.add('text-center');
             area.classList.add('card-text');
             area.textContent = `Area: ${country.area ? country.area + ' km²' : 'N/A'}`;
         
+            // Country Capital
             const capital = document.createElement('div');
             capital.classList.add('text-center');
             capital.classList.add('card-text');
             capital.textContent = `Capital: ${country.capital || 'N/A'}`;
         
+            // Country Code
             const countryCode = document.createElement('div');
             countryCode.classList.add('text-center');
             countryCode.classList.add('card-text');
             countryCode.textContent = `Country Code: ${country.cca2 || 'N/A'}`;
         
+            // Country Currency
             const currency = document.createElement('div');
             currency.classList.add('text-center');
             currency.classList.add('card-text');
             currency.textContent = `Currency: ${country.currencies ? Object.values(country.currencies)[0].name : 'N/A'}`;
-        
+
+            //Latitude and Longitude
+            const latitudelongitude = document.createElement('div');
+            latitudelongitude.classList.add('text-center');
+            latitudelongitude.classList.add('card-text');
+            latitudelongitude.textContent = `Latitude and Longitude: ${country.latlng[0] || 'N/A'} and ${country.latlng[1] || 'N/A'}`;
+
+            // Weather Button
             const weatherButton = document.createElement('button');
             weatherButton.setAttribute('id', 'button');
             weatherButton.classList.add('btn', 'btn-primary', 'mt-1');
@@ -105,9 +123,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     console.log(weatherData); // Log weather data to inspect its structure
                     alert(`Weather in ${country.name.common}\nTemperature: ${weatherData.main.temp}°C\nWeather: ${weatherData.weather[0].description}`);
                 })
+                // To print error if unable get the weather datas
                 .catch(error => console.error('Error fetching weather data:', error));
             });
-        
+            // Appending card details
             cardText.appendChild(nativeName);
             cardText.appendChild(region);
             cardText.appendChild(population);
@@ -115,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function() {
             cardText.appendChild(capital);
             cardText.appendChild(countryCode);
             cardText.appendChild(currency);
+            cardText.appendChild(latitudelongitude)
         
             cardBody.appendChild(countryName);
             cardBody.appendChild(flag);
@@ -132,5 +152,6 @@ document.addEventListener("DOMContentLoaded", function() {
           countryRow.appendChild(createCard(country));
         });
       })
+      // To Print error if unable fetch datas
       .catch(error => console.error('Error fetching country data:', error));
 });
